@@ -16,3 +16,16 @@ export function debounce(method, delay = 100) {
         }, delay);
     };
 }
+export function throttle (fn, delay = 10) {
+    let timer = null;
+    return function () {
+        if (timer) {
+            clearTimeout(timer)
+        }
+        timer = setTimeout(() => {
+            fn.apply(this, arguments);
+            clearTimeout(timer);
+            timer = null;
+        }, delay);
+    }
+}
