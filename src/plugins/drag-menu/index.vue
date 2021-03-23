@@ -3,7 +3,7 @@
     <Title>
         <div>组件库</div>
         <CloseContainer @click.native="handleCloseLeftBar">
-            <Icon type="close-circled"></Icon>
+            <ElIcon class="el-icon-circle-close"></ElIcon>
         </CloseContainer>
     </Title>
     <SearchInput placeholder="Search.." ></SearchInput>

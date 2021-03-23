@@ -1,5 +1,5 @@
 <template>
-  <Button :type="type" :style="{...styles}">{{text}}</Button>
+  <ElButton :type="type" :style="{...styles}">{{text}}</ElButton>
 </template>
 
 <script>

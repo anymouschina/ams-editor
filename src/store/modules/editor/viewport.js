@@ -1,10 +1,11 @@
 import Sortable from 'sortablejs';
 import * as _ from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 // import eventbus from '../../../views/editor/service/eventbus';
 
 let common = {
     createNewInstanceKey () {
-        return _.uniqueId('gaea_instance_');
+        return uuidv4()
     }
 };
 

@@ -6,7 +6,7 @@
         <ColorContainer>
             <input type="color" v-model="color">
         </ColorContainer>
-        <Input size="small" style="width:60px" v-model="color" type="text" ></Input>
+        <ElInput size="small" style="width:100px" v-model="color" type="text" ></ElInput>
     </Container>
 </template>
 

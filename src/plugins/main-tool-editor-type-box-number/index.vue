@@ -4,12 +4,13 @@
 <template>
    <Container>
        <SliderContainer>
-           <Slider v-model="val" :max="max" :min="min"></Slider>
+           <ElSlider v-model="val" :max="max" :min="min"></ElSlider>
        </SliderContainer>
-       <InputNumber
+       <ElInputNumber
           size="small"
           v-model ="val"
-          style="width:60px"
+          controls-position="right"
+          style="width:100px"
         />
    </Container>
 </template>

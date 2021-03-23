@@ -116,7 +116,6 @@ export const HelperClass = {
         if (!this.__crrtInstanceKey__) {
             return;
         }
-        debugger
         // 注册 当前dom 事件
         this.registerEvent();
         this.__crrtInstanceInfo__ = this

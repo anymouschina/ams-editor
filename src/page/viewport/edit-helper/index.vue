@@ -33,7 +33,6 @@ export default {
         mountRoot () {
             this.instanceInfo = this.viewportStore.instances.get(this.instanceKey);
             this.componentClass = this.$store.state.application.componentClasses.get(this.instanceInfo.gaeaKey);
-            debugger
             mount(this.wrappedInstance, this.componentClass, false, this.instanceKey, this.$store).then(vm => {
                 // 设置当前dom
                 // this.instanceInfo.vm = vm;

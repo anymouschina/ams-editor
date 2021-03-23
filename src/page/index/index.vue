@@ -53,7 +53,6 @@
 import * as components from './index.style';
 // 加载内置插件及每个区块对应的key
 import {SVC} from '../../service';
-console.info(SVC,'!!')
 // 加载组件库
 // 加载viewport
 import Viewport from '../viewport';

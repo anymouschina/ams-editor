@@ -1,7 +1,7 @@
 import styled from 'vue-styled-components';
 
 export const Container = styled('div', {
-    theme: Object
+  theme: Object
 })`
   ${(props) => props.theme.active && `
     background-color: white;

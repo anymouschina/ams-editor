@@ -84,7 +84,7 @@ export const ViewportContainer = styled.div`
     height: 0;
 `;
 
-export const ViewportContainerLeft = styled('div', {theme: Object})`
+export const ViewportContainerLeft = styled('div', { theme: Object })`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -132,7 +132,7 @@ export const ViewportContainerLeftBottom = styled.div`
     }
 `;
 
-export const ViewportContainerRight = styled('div', {theme: Object})`
+export const ViewportContainerRight = styled('div', { theme: Object })`
     display: flex;
     margin-left: -300px;
     flex-grow: 1;
@@ -153,7 +153,7 @@ export const FooterContainer = styled.div`
     background-color: whitesmoke;
 `;
 
-export const ToolsContainer = styled('div', {theme: Object})`
+export const ToolsContainer = styled('div', { theme: Object })`
     display: flex;
     flex-direction: row;
     background-color: whitesmoke;
@@ -171,7 +171,7 @@ export const ToolsContainerLeft = styled.div`
     border-right: 1px solid #ddd;
 `;
 
-export const ToolsContainerRight = styled('div', {theme: Object})`
+export const ToolsContainerRight = styled('div', { theme: Object })`
     display: flex;
     flex-direction: column;
     display: none;
@@ -182,12 +182,12 @@ export const ToolsContainerRight = styled('div', {theme: Object})`
     `}
 `;
 
-export const ViewportContainerBox = styled('div', {theme: Object})`
+export const ViewportContainerBox = styled('div', { theme: Object })`
     ${ViewportContainerBoxAndPreviewContainer}
     overflow-x: hidden;
 `;
 
-export const PreviewContainer = styled('div', {theme: Object})`
+export const PreviewContainer = styled('div', { theme: Object })`
     ${ViewportContainerBoxAndPreviewContainer}
     overflow-y: auto;
 `;

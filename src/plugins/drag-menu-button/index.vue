@@ -2,7 +2,7 @@
     <Container  :theme="{active:leftTool}" >
         <ElTooltip content="选择控件" placement="right-start">
             <IconContainer @click.native="triggerClick">
-                <ElIcon type="drag"></ElIcon>
+                <ElIcon class="el-icon-s-grid"></ElIcon>
             </IconContainer>
         </ElTooltip>
     </Container>

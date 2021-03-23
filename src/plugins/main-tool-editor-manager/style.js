@@ -25,7 +25,7 @@ export const TabTitle = styled.div`
   font-weight: bold;
 `;
 
-export const EditorContainer = styled('div', {theme: Object})`
+export const EditorContainer = styled('div', { theme: Object })`
   display: flex;
   position: relative;
   justify-content: space-between;
@@ -41,7 +41,7 @@ export const EditorBoxContainer = styled.div`
   flex-grow: 1;
 `;
 
-export const Variable = styled('div', {theme: Object})`
+export const Variable = styled('div', { theme: Object })`
   display: none;
   /* display: flex; */
   align-items: center;
@@ -70,7 +70,7 @@ export const Variable = styled('div', {theme: Object})`
   `}
 `;
 
-export const Label = styled('div', {theme: Object})`
+export const Label = styled('div', { theme: Object })`
   display: flex;
   flex-direction: row;
   align-items: center;

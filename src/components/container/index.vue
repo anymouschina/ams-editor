@@ -1,5 +1,6 @@
 <template>
   <div :style="{minWidth: '100px',minHeight: '100px',...styles}"  class="gaea-slot" data-slot-name='default' >
+    {{styles}}
     <slot></slot>
   </div>
 </template>

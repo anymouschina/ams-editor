@@ -1,9 +1,9 @@
 import component from './index.vue';
 import application from './store/modules/editor/application';
 import viewport from './store/modules/editor/viewport';
-
+import element from 'element-ui'
 import Plugins from './service';
-
+import { InputNumber } from 'iview';
 import Mixins from './service/mount';
 
 let GaeaEditor = {
@@ -20,6 +20,8 @@ let GaeaEditor = {
     if (!store.state.viewport) {
       store.registerModule('viewport', viewport);
     }
+    Vue.use(element)
+    Vue.component(InputNumber.name, InputNumber)
     // 注册组件
     Vue.component('gaea-editor', component);
     Plugins(Vue);

@@ -59,8 +59,7 @@ export const mountSlot = (parentVm, component, slotName, instanceKey, store) => 
             }],
             store
         };
-        debugger
-        let elem = parentVm.$createElement(WrapperComponent);
+
         // if (Array.isArray(elem)) {
         //     if (Array.isArray(parentVm.$slots[slotName])) {
         //         parentVm.$slots[slotName] = [...parentVm.$slots[slotName], ...elem];
@@ -68,6 +67,7 @@ export const mountSlot = (parentVm, component, slotName, instanceKey, store) => 
         //         parentVm.$slots[slotName] = [...elem];
         //     }
         // } else {
+        let elem = parentVm.$createElement(WrapperComponent);
         if (Array.isArray(parentVm.$slots[slotName])) {
             parentVm.$slots[slotName].push(elem);
         } else {

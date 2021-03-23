@@ -3,7 +3,6 @@
 
 
 <script>
-import { ElButtonGroup as ButtonGroup, ElTooltip as Tooltip, ElButton as Button, ElSwitch as Switch, ElInput as Input } from 'element-ui';
 import { Container, DisplayContainer, FlexContainer, FlexRow } from './style';
 import {
     icon_block,
@@ -47,7 +46,7 @@ export default {
         renderDisplay (h) {
             return (
                 <DisplayContainer>
-                    <ButtonGroup>
+                    <ElButtonGroup>
                         {this.ActiveButton({
                             active: this.crrtDisplay.display === 'block',
                             children: icon_block(h),
@@ -69,7 +68,7 @@ export default {
                             field: 'display',
                             value: 'inline'
                         })}
-                    </ButtonGroup>
+                    </ElButtonGroup>
                     {this.ActiveButton({
                         active: this.crrtDisplay.display === 'flex',
                         children: icon_flex(h),
@@ -134,7 +133,7 @@ export default {
             return (
                 <FlexContainer>
                     <FlexRow style={{ marginTop: 5 + 'px' }}>
-                        <ButtonGroup>
+                        <ElButtonGroup>
                             {this.ActiveButton({
                                 active: this.crrtDisplay.justifyContent === 'flex-start',
                                 children: iconflex_direction_end(h, isRow ? 'rotate-180' : 'rotate-270'),
@@ -151,7 +150,7 @@ export default {
                             })}
                             {this.ActiveButton({
                                 active: this.crrtDisplay.justifyContent === 'flex-end',
-                                children: IconflexDirectionEnd(h, isRow ? null : 'rotate-90'),
+                                children: iconflex_direction_end(h, isRow ? null : 'rotate-90'),
                                 title: rowFlexEnd,
                                 field: 'justifyContent',
                                 value: 'flex-end'
@@ -170,10 +169,10 @@ export default {
                                 field: 'justifyContent',
                                 value: 'space-around'
                             })}
-                        </ButtonGroup>
+                        </ElButtonGroup>
                     </FlexRow>
                     <FlexRow style={{ marginTop: 5 + 'px' }}>
-                        <ButtonGroup>
+                        <ElButtonGroup>
                             {this.ActiveButton({
                                 active: this.crrtDisplay.alignItems === 'flex-start',
                                 children: iconflex_align_start(h, isRow ? null : 'rotate-270'),
@@ -190,7 +189,7 @@ export default {
                             })}
                             {this.ActiveButton({
                                 active: this.crrtDisplay.alignItems === 'flex-end',
-                                children: IconflexAlignStart(h, isRow ? 'rotate-180' : 'rotate-90'),
+                                children: iconflex_align_start(h, isRow ? 'rotate-180' : 'rotate-90'),
                                 title: columnFlexEnd,
                                 field: 'alignItems',
                                 value: 'flex-end'
@@ -209,28 +208,30 @@ export default {
                                 field: 'alignItems',
                                 value: 'baseline'
                             })}
-                        </ButtonGroup>
+                        </ElButtonGroup>
                     </FlexRow>
                     <FlexRow style={{ marginTop: 5 + 'px' }}>
-                        <Switch
-                            onOn-change={this.handleChangeDirection}
+                        <ElSwitch
+                            on-change={this.handleChangeDirection}
                             size="large"
+                            active-text="从上往下"
+                            inactive-text="从左往右"
                             value={
                                 ['column', 'column-reverse'].indexOf(flexDirection) >= 0
                             }
                         >
                             <span slot="open">vertical</span>
                             <span slot="close">horizontal</span>
-                        </Switch>
-                        <Input
+                        </ElSwitch>
+                        <ElInput
                             style={{ width: 130 + 'px' }}
                             size="small"
                             number
                             value={this.crrtDisplay.flexGrow}
-                            onOn-change={this.handleFlexGrowChange}
+                            on-input={this.handleFlexGrowChange}
                         >
                             <span slot="prepend">Grow</span>
-                        </Input>
+                        </ElInput>
                     </FlexRow>
                 </FlexContainer>
             );
@@ -238,16 +239,16 @@ export default {
         ActiveButton (props) {
             const { active, title, field, value } = props;
             return (
-                <Button
+                <ElButton
                     style={{ height: '24px', padding: '0 7px' }}
                     size="small"
                     type={active ? 'primary' : null}
                     onClick={this.handleUpdateValue.bind(this, field, value)}
                 >
-                    <Tooltip content={title} placement="top">
+                    <ElTooltip content={title} placement="top">
                         {props.children}
-                    </Tooltip>
-                </Button>
+                    </ElTooltip>
+                </ElButton>
             );
         },
         handleUpdateValue (field, value) {
@@ -256,8 +257,8 @@ export default {
         handleChangeDirection (val) {
             this.crrtDisplay.flexDirection = val ? 'column' : 'row';
         },
-        handleFlexGrowChange (event) {
-            this.crrtDisplay.flexGrow = parseInt(event.target.value);
+        handleFlexGrowChange (value) {
+            this.crrtDisplay.flexGrow = parseInt(value);
         },
         _initPerStyle (field) {
             this.crrtDisplay[field] = this.instanceInfo.vm.$data.styles[field];
