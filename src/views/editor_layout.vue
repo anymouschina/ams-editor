@@ -30,10 +30,10 @@
           <div class="engine-slate-container">
             <div class="engine-prototype-group">
               <div class="engine-group-title">布局</div>
-              <div class="engine-group-body">
+              <div class="engine-group-body" ref="drag-menu">
                 <div v-for="item in 4" :key="item" >
                   <div class="engine-prototype-additive">
-                    <div class="engine-additive-wrapper">容器</div>
+                    <div class="engine-additive-wrapper">容器{{item}}</div>
                   </div>
                 </div>
               </div>
@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    <div class="engine-pane engine-workspacepane" >
+    <div class="engine-pane engine-workspacepane" ref="drag-background">
 
     </div>
     <div class="engine-pane engine-tabpane"></div>
@@ -50,33 +50,42 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import {addEvent} from '@/ams/utils/dom.js'
-import {throttle} from '@/ams/utils/function'
 export default {
   name: 'editor-layout',
   components: {},
   data(){
     return {
       events:[],
-      status:'deactive'
+      status:'deactive',
+      activeObj:{
+        x:0,
+        y:0
+      }
     }
   },
   mounted(){
-    this.events.push(addEvent(this.$refs['editor'],'mousedown',(e)=>{
-      debugger
-      this.status = 'active'
-    }))
-    this.events.push(addEvent(this.$refs['editor'],'mouseup',(e)=>{
-      debugger
-      this.status = 'deactive'
-    }))
-    this.events.push(throttle(addEvent(this.$refs['editor'],'mouseover',()=>{
-      if(this.status === 'active'){
-        debugger
-      }
-      
-    }),100))
+    this.$editor.registerOuterDrag(this.$refs['drag-menu'])
+    this.$editor.registerInnerDrag(null,this.$refs['drag-background'],{})
+    // this.events.push(addEvent(this.$refs['editor'],'mousedown',(e)=>{
+    //   // debugger
+    //   console.info(e,'当前点击的')
+    //   // this.status = 'active'
+    // }))
+    // this.events.push(addEvent(this.$refs['editor'],'mouseup',(e)=>{
+    //   // debugger
+    //   this.status = ''
+    // }))
+    // this.events.push(
+    //   throttle(
+    //     addEvent(this.$refs['editor'],'mousemove',(e)=>{
+    //     if(this.status !== ''){
+    //       const {pageX:x,pageY:y} = e;
+    //       this.$refs['fixed-item'].style.left = x + 'px';
+    //       this.$refs['fixed-item'].style.top = y + 'px'; 
+    //     }
+    //  })
+    //  ,200)
+    // )
   },
   beforeDestroy(){
     if (this.events && this.events.length) {
@@ -96,6 +105,14 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.hidden-item{
+  display: none;
+
+}
+.fixed-item{
+  position:fixed;
+  z-index:1001;
+}
 .engine-slate-container {
   height: calc(100% - 90px);
   overflow: auto;
