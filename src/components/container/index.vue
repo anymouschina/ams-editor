@@ -2,7 +2,6 @@
   <div :style="{minWidth: '100px',minHeight: '100px',...styles}"  class="gaea-slot" data-slot-name='default' >
     <!-- {{styles}} -->
     <slot></slot>
-    <span class="react-resizable-handle"></span>
   </div>
 </template>
 
@@ -25,7 +24,7 @@ export default {
 
 <style lang="scss" scoped>
 .gaea-slot{
-  position:relative;
+  position:static;
 }
 .react-resizable-handle {
     position: absolute;

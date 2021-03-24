@@ -29,6 +29,7 @@ export default {
         //     }, 200);
         // },
         calc () {
+            return ;
             // 正在拖拽中不显示
             if (this.$store.state.viewport.currentDragInfo !== null) {
                 this.isShow = false;

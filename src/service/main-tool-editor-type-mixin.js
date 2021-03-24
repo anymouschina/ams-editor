@@ -27,6 +27,7 @@ export const PropertyMixin = {
     },
     methods: {
         setInstanceProps (value) {
+            if (this.editor.afterHandler) value = this.editor.afterHandler.call(this, value)
             this.$store.commit('viewport/setInstanceProps', {
                 vm: this.instanceInfo.vm,
                 key: this.field,

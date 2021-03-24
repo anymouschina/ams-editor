@@ -16,6 +16,19 @@ export const editSetting = {
         },
         'Style',
         {
+            field: 'styles.position',
+            text: '流式布局',
+            type: 'boolean',
+            afterHandler (v) {
+                this.$store.commit('viewport/setInstanceProps', {
+                    vm: this.instanceInfo.vm,
+                    key: 'styles.display',
+                    value: 'block'
+                });
+                return v ? 'relative' : 'static'
+            }
+        },
+        {
             field: 'styles.backgroundColor',
             text: 'BackgroundColor',
             type: 'color'

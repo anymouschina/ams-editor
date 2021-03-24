@@ -152,7 +152,7 @@ const viewport = {
             } else {
                 _.set(vm.$data, key, value);
             }
-            vm.$forceUpdate();
+            vm.$root.$forceUpdate();
             eventbus.$emit('calc_activeline')
         },
         setRootInstanceKey (state, key) {
@@ -328,7 +328,12 @@ const viewport = {
                 },
                 onEnd: (event) => {
                     this.commit('viewport/endDrag');
-
+                    if (event.from === event.to) {
+                        console.info(event.originalEvent)
+                        const { layerX, layerY } = event.originalEvent
+                        event.item.style['left'] = layerX + 'px';
+                        event.item.style['top'] = layerY + 'px';
+                    }
                     // 在 viewport 中元素拖拽完毕后, 为了防止 outer-move-box 在原来位置留下残影, 先隐藏掉
                     this.commit('viewport/setCurrentHoverInstanceKey', null);
                 },
@@ -395,13 +400,13 @@ const viewport = {
                         .get(parentInstanceKey)
                         .slots[toSlotName][state.currentDragInfo.dragStartIndex];
                     const dragViewportInfo = state.currentDragInfo.info;
-                    this.commit('viewport/moveInstance', {
+                    dragTargetKey && (this.commit('viewport/moveInstance', {
                         sourceTargetKey: dragTargetKey,
                         targetParentKey: dragViewportInfo.targetInstanceKey,
                         targetIndex: dragViewportInfo.targetIndex,
                         fromSlotName,
                         toSlotName
-                    });
+                    }));
                 }
             });
         },

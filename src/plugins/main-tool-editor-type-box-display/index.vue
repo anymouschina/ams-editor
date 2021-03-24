@@ -289,7 +289,8 @@ export default {
                     vm: this.instanceInfo.vm,
                     key: 'styles',
                     value: {
-                        ...n
+                        ...n,
+                        position:'static'
                     }
                 });
             },
