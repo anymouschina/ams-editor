@@ -29,15 +29,18 @@ export const editSetting = {
             text: 'Type',
             type: 'select',
             data: [{
-                value: null,
+                value: 'Default',
                 text: 'Default'
             }, {
                 value: 'primary',
                 text: 'Primary'
             }, {
-                value: 'dashed',
-                text: 'Dashed'
-            }, {
+                    value: 'info',
+                    text: 'info'
+                }, {
+                    value: 'warning',
+                    text: 'warning'
+                }, {
                 value: 'danger',
                 text: 'Danger'
             }]

@@ -1,7 +1,8 @@
 <template>
   <div :style="{minWidth: '100px',minHeight: '100px',...styles}"  class="gaea-slot" data-slot-name='default' >
-    {{styles}}
+    <!-- {{styles}} -->
     <slot></slot>
+    <span class="react-resizable-handle"></span>
   </div>
 </template>
 
@@ -22,6 +23,29 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.gaea-slot{
+  position:relative;
+}
+.react-resizable-handle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    bottom: 0;
+    right: 0;
+    cursor: nw-resize;
+    &:after{
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      content: "";
+      position: absolute;
+      right: 3px;
+      bottom: 3px;
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid rgba(0,0,0,.4);
+      border-bottom: 2px solid rgba(0,0,0,.4);
+    }
+}
 
 </style>

@@ -1,6 +1,7 @@
 import Sortable from 'sortablejs';
 import * as _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
+import eventbus from '../../../service/eventbus';
 // import eventbus from '../../../views/editor/service/eventbus';
 
 let common = {
@@ -16,6 +17,7 @@ const viewport = {
         rootInstanceKey: null,
         instances: new Map(),
         instanceDoms: new Map(),
+        refreshActive: false,
         currentDragInfo: null,
         currentHoverInstanceKey: null,
         currentEditInstanceKey: null,
@@ -151,6 +153,7 @@ const viewport = {
                 _.set(vm.$data, key, value);
             }
             vm.$forceUpdate();
+            eventbus.$emit('calc_activeline')
         },
         setRootInstanceKey (state, key) {
             state.rootInstanceKey = key;

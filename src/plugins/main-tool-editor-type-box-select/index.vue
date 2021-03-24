@@ -1,17 +1,19 @@
 <template>
     <Container>
-        <Select v-model="val" style="width:150px" size="small" >
-            <Option v-for="item in optionsData" :value="item.value||''" :key="item.value">{{ item.text }}</Option>
-        </Select>
+        <ElSelect v-model="val" style="width:150px" size="small" >
+            <ElOption v-for="item in optionsData" :value="item.value||''" :label="item.text" :key="item.value">{{ item.text }}</ElOption>
+        </ElSelect>
     </Container>
 </template>
 
 <script>
 import * as components from './style';
+import {PropertyMixin} from '../../service/main-tool-editor-type-mixin';
 export default {
     components: {
         ...components
     },
+    mixins:[PropertyMixin],
     position: 'mainToolEditorTypeSelect',
     name: 'main-tool-editor-type-select',
     data () {
@@ -22,6 +24,16 @@ export default {
     props: {
         instanceInfo: Object,
         editor: Object
+    },
+    watch:{
+           val: {
+            handler (n, o) {
+                 if (n === o) {
+                    return;
+                }
+                this.setInstanceProps(n);
+            }
+        },
     },
     computed: {
         applicationState () {

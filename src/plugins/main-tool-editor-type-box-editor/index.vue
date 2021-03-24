@@ -6,14 +6,17 @@
 import * as _ from 'lodash';
 import {Container} from './style';
 import BoxEdit from './box-editor';
+import {PropertyMixin} from '../../service/main-tool-editor-type-mixin';
 import {getStyle} from '../../service/dom';
 export default {
+    mixins:[PropertyMixin],
     props: {
         instanceInfo: Object,
         editor: Object
     },
     data () {
         return {
+            refresh:1,
             crrtStyle: {
                 paddingLeft: 0,
                 paddingTop: 0,
@@ -69,9 +72,9 @@ export default {
         },
         _initPerStyle (field) {
             if (this.instanceInfo.vm.$data.styles && typeof this.instanceInfo.vm.$data.styles[field] !== 'undefined') {
-                this.crrtStyle[field] = parseInt(this.instanceInfo.vm.$data.styles[field]);
+                this.$set(this.crrtStyle,field,parseInt(this.instanceInfo.vm.$data.styles[field]))
             } else {
-                this.crrtStyle[field] = parseInt(getStyle(this.instanceInfo.vm.$el, _.kebabCase(field)));
+                this.$set(this.crrtStyle,field,parseInt(getStyle(this.instanceInfo.vm.$el, _.kebabCase(field))))
             }
         },
         refresStyles () {
@@ -83,6 +86,7 @@ export default {
             this._initPerStyle('marginTop');
             this._initPerStyle('marginRight');
             this._initPerStyle('marginBottom');
+            this.refresh++;
         }
     },
     watch: {
@@ -95,6 +99,7 @@ export default {
         return (
             <Container>
                 <BoxEdit
+                    key={this.refresh}
                     onStart={this.handleStart}
                     marginLeft={this.crrtStyle.marginLeft}
                     marginTop={this.crrtStyle.marginTop}

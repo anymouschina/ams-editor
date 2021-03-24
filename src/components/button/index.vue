@@ -1,5 +1,5 @@
 <template>
-  <ElButton :type="type" :style="{...styles}">{{text}}</ElButton>
+  <ElButton :type="type" :style="{...styles}">{{text}}{{loading}}</ElButton>
 </template>
 
 <script>
@@ -17,7 +17,9 @@ export default {
         return {
             text: 'Button Text',
             styles: {},
-            type: 'default'
+            type: 'default',
+            loading:false,
+            transparent:false
         };
     },
     editSetting,

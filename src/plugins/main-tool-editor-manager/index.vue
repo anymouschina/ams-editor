@@ -10,8 +10,9 @@
                     <Label v-if="editor.text"  :theme="{isObjectType:editor.type==='array'||editor.type==='object'}" >
                         <span>{{editor.text}}</span>
                     </Label>
-                    <EditorBoxContainer>       
-                        <component :instanceInfo="instanceInfo" :editor="editor"  :is="innerItem" v-for="(innerItem,innerIndex) in pluginsBelongKeys[`mainToolEditorType${upperFirst(camelCase(editor.type))}`]" :key="innerIndex"></component>
+                    <EditorBoxContainer>   
+                        <component :instanceInfo="instanceInfo" :editor="editor"  :is="innerItem" v-for="(innerItem,innerIndex) in pluginsBelongKeys[`mainToolEditorType${upperFirst(camelCase(editor.type))}`]" :key="innerIndex">
+                        </component>
                     </EditorBoxContainer>
                 </EditorContainer>
             </template>

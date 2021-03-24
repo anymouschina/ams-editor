@@ -1,6 +1,6 @@
 <template>
    <Container>
-        <Input v-model="value" size="small" />
+        <ElInput v-model="value" size="small" />
    </Container>
 </template>
 

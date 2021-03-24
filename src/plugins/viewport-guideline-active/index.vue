@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import eventbus from '../../service/eventbus'
 export default {
     position: 'viewport',
     name: 'viewport-guideline-active',
@@ -10,6 +11,10 @@ export default {
         currentEditInstanceKey () {
             let currentEditInstanceKey = this.$store.state.viewport.currentEditInstanceKey;
             return currentEditInstanceKey;
+        },
+        refreshActive(){
+            let refreshActive = this.$store.state.viewport.refreshActive;
+            return refreshActive
         }
     },
     watch:{
@@ -26,12 +31,12 @@ export default {
                 this.isShow = true;
             }
             // 没有 hover 元素不显示
-            if (this.$store.state.viewport.currentHoverInstanceKey === null) {
+            if (this.$store.state.viewport.currentEditInstanceKey === null) {
                 this.isShow = false;
                 return;
             }
             // 设置  style
-            const targetBoundingClientRect = this.$store.state.viewport.instanceDoms.get(this.$store.state.viewport.currentHoverInstanceKey).getBoundingClientRect();
+            const targetBoundingClientRect = this.$store.state.viewport.instanceDoms.get(this.$store.state.viewport.currentEditInstanceKey).getBoundingClientRect();
             const viewportBoundingClientRect = this.$store.state.viewport.viewportDOM.getBoundingClientRect();
             this.dymStyle = {
                 width: `${targetBoundingClientRect.width - 1}px`,
@@ -50,6 +55,11 @@ export default {
     },
     mounted () {
         // this.calc();
+        eventbus.$on('calc_activeline',()=>{
+            setTimeout(()=>{
+              this.calc()
+            },0)
+        })
     },
 };
 </script>
