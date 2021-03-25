@@ -5,8 +5,8 @@
 <script>
 import eventbus from '../../service/eventbus'
 export default {
-    position: 'viewport',
-    name: 'viewport-guideline-active',
+    // position: 'viewport',
+    // name: 'viewport-guideline-active',
     computed:{
         currentEditInstanceKey () {
             let currentEditInstanceKey = this.$store.state.viewport.currentEditInstanceKey;

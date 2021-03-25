@@ -1,9 +1,8 @@
-import Sortable from 'sortablejs';
+import Sortable from 'sortablejs'
 import * as _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import eventbus from '../../../service/eventbus';
 // import eventbus from '../../../views/editor/service/eventbus';
-
 let common = {
     createNewInstanceKey () {
         return uuidv4()
@@ -306,9 +305,12 @@ const viewport = {
             const instance = state
                 .instances
                 .get(parentInstanceKey);
-            Sortable.create(dragParentDom, {
+            const Sortable_pointer = Sortable.create(dragParentDom, {
                 ...params,
                 animation: 50,
+                removeOnSpill: true, // Enable plugin
+                // forceFallback: true,
+                // fallbackClass: 'drag-item',
                 // 放在一个组里,可以跨组拖拽
                 group: {
                     name: groupName,
@@ -325,14 +327,34 @@ const viewport = {
                             instanceKey: instance.slots[slotName][event.oldIndex]
                         }
                     });
+                    if (event.from === event.to && event.from.style.position === 'relative') {
+                        console.info(event.originalEvent, '???')
+                        const { layerX, offsetX, offsetY, layerY } = event.originalEvent
+                        event.item.style['position'] = 'absolute';
+                        event.item.style['transform'] = `translate(${layerX - offsetX}px,${layerY - offsetY}px)`
+                    }
+                },
+                onChoose: (event) => {
+                    if (event.from === event.to && event.from.style.position === 'relative') {
+                        const { layerX, layerY } = event.originalEvent;
+                        const { width, height } = event.item.getClientRects()[0]
+                        console.info('choose', layerX, layerY, width, height)
+                        event.item.style['position'] = 'absolute';
+                        event.item.style['transform'] = `translate(${layerX - 0.5 * width}px,${layerY - 0.5 * height}px)`
+                    }
+                    // const elem = event.dragged,
+                    //     { x: layerX, y: layerY } = event.draggedRect;
+                    // elem.style['transform'] = `translate(${layerX}px,${layerY}px)`
                 },
                 onEnd: (event) => {
                     this.commit('viewport/endDrag');
-                    if (event.from === event.to) {
-                        console.info(event.originalEvent)
-                        const { layerX, layerY } = event.originalEvent
-                        event.item.style['left'] = layerX + 'px';
-                        event.item.style['top'] = layerY + 'px';
+                    // event.item.style.visibility = 'initial';
+                    if (event.from === event.to && event.from.style.position === 'relative') {
+
+                        const { layerX, layerY } = event.originalEvent;
+                        const { width, height } = event.item.getClientRects()[0]
+                        event.item.style['position'] = 'absolute';
+                        event.item.style['transform'] = `translate(${layerX - 0.5 * width}px,${layerY - 0.5 * height}px)`
                     }
                     // 在 viewport 中元素拖拽完毕后, 为了防止 outer-move-box 在原来位置留下残影, 先隐藏掉
                     this.commit('viewport/setCurrentHoverInstanceKey', null);
@@ -381,6 +403,9 @@ const viewport = {
                             break;
                     }
                 },
+                onClone: (event) => {
+                    // event.item.style.visibzuoility = 'hidden'
+                },
                 onUpdate: (event) => {
                     let slotName = event.from.dataset.slotName;
                     //  同一个父级下子元素交换父级 // 取消 srotable 对 dom 的修改, 让元素回到最初的位置即可复原
@@ -390,6 +415,17 @@ const viewport = {
                         afterIndex: event.newIndex,
                         slotName
                     });
+                },
+                onUnchoose: function (/**Event*/event) {
+                    // event.item.style.visibility = 'initial';
+                    // same properties as onEnd
+                    if (event.from === event.to && event.from.style.position === 'relative') {
+                        const { layerX, layerY } = event.originalEvent;
+                        const { width, height } = event.item.getClientRects()[0]
+                        console.info('choose', layerX, layerY, width, height)
+                        event.item.style['position'] = 'absolute';
+                        event.item.style['transform'] = `translate(${layerX - 0.5 * width}px,${layerY - 0.5 * height}px)`
+                    }
                 },
                 onRemove: (event) => {
                     // onEnd 在其之后执行，会清除拖拽目标的信息 减少了一个子元素，一定是发生在 viewport 区域元素发生跨父级拖拽时
@@ -409,6 +445,7 @@ const viewport = {
                     }));
                 }
             });
+            _.set(instance.vm.$data, 'sortable_pointer', Sortable_pointer);
         },
         getInstancePath (state, {instanceKey, cb}) {
             const finderPath = [state.currentEditInstanceKey];

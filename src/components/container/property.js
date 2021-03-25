@@ -25,6 +25,15 @@ export const editSetting = {
                     key: 'styles.display',
                     value: 'block'
                 });
+                const sortable_pointer = this.instanceInfo.vm.$data.sortable_pointer;
+                if (v) {
+                    sortable_pointer.option('group')
+                    sortable_pointer.option('sort', false);//禁止排序
+                } else {
+                    sortable_pointer.option('group')
+                    sortable_pointer.option('sort', true);//禁止排序
+                }
+
                 return v ? 'relative' : 'static'
             }
         },

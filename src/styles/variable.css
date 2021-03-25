@@ -44,3 +44,12 @@
   --color-layer-mask-background: rgba(0, 0, 0, 0.1);
   --color-layer-tooltip-background: rgba(44, 47, 51, 0.8);
 }
+.hidden{
+  display: none;
+}
+.drag-item{
+  display: block;
+  width:20px;
+  height:20px;
+  background: red;
+}
